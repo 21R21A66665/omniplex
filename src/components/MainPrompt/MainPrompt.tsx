@@ -1,5 +1,6 @@
 "use client";
-
+import { loadStripe } from '@stripe/stripe-js';
+import BuyProPlanButton from '../StripeButton/BuyProPlanButton';
 import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import styles from "./MainPrompt.module.css";
@@ -29,6 +30,7 @@ import Clip from "../../../public/svgs/Clip.svg";
 import Check from "../../../public/svgs/Check.svg";
 import CrossRed from "../../../public/svgs/CrossRed.svg";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 const MainPrompt = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -243,6 +245,66 @@ const MainPrompt = () => {
           onChange={handleInput}
           onKeyDown={handleEnter}
         />
+        {/* INSERT THE NEW BUTTON CODE HERE */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px', marginBottom: '15px' }}>
+        <button
+          onClick={async () => {
+            try {
+              const response = await fetch('/api/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+
+              if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Failed to create Stripe Checkout session:', errorData.error);
+                toast.error('Error initiating payment: ' + errorData.error);
+                return;
+              }
+
+              const session = await response.json();
+              const stripe = await stripePromise;
+
+              if (stripe) {
+                const { error } = await stripe.redirectToCheckout({
+                  sessionId: session.id,
+                });
+
+                if (error) {
+                  console.error('Stripe Checkout Error:', error.message);
+                  toast.error('Payment process cancelled or failed: ' + error.message);
+                }
+              } else {
+                 console.error('Stripe.js failed to load.');
+                 toast.error('Payment system not ready.');
+              }
+
+            } catch (error) {
+              console.error('Network or unexpected error:', error);
+              toast.error('An unexpected error occurred during payment initiation.');
+            }
+          }}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#6772E5', // Stripe's brand color
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
+            transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5469d4')} // Hover effect
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#6772E5')} // Reset hover
+        >
+          Buy Pro Plan - $10
+        </button>
+      </div>
+      {/* END OF NEW BUTTON CODE */}
         <div className={styles.mainRow}>
           <div className={styles.sectionRow}>
             {width <= 512 && (

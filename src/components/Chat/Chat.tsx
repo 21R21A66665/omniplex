@@ -471,20 +471,21 @@ const Chat = (props: Props) => {
     }
   };
 
-  if (isFetching) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.chat}>
-          <p className={styles.question}>Loading...</p>
-          <ChatFetch />
-        </div>
-      </div>
-    );
-  }
+  // if (isFetching) {
+  //   return (
+  //     <div className={styles.container}>
+  //       <div className={styles.chat}>
+  //         <p className={styles.question}>Loading...</p>
+  //         <ChatFetch />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!chatThread) {
-    return <Chat404 />;
-  }
+  // if (!chatThread) {
+  //   return <Chat404 />;
+  // }
+
 
   return (
     <div className={styles.container}>
