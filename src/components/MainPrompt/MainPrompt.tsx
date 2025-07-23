@@ -237,15 +237,7 @@ const MainPrompt = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Where Knowledge Evolves</div>
-      <div className={styles.promptContainer}>
-        <textarea
-          placeholder="Ask anything..."
-          className={styles.promptText}
-          value={text}
-          onChange={handleInput}
-          onKeyDown={handleEnter}
-        />
-        {/* INSERT THE NEW BUTTON CODE HERE */}
+      {/* INSERT THE NEW BUTTON CODE HERE */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px', marginBottom: '15px' }}>
         <button
           onClick={async () => {
@@ -305,6 +297,16 @@ const MainPrompt = () => {
         </button>
       </div>
       {/* END OF NEW BUTTON CODE */}
+      <div className={styles.promptContainer}>
+        
+        <textarea
+          placeholder="Ask anything..."
+          className={styles.promptText}
+          value={text}
+          onChange={handleInput}
+          onKeyDown={handleEnter}
+        />
+        
         <div className={styles.mainRow}>
           <div className={styles.sectionRow}>
             {width <= 512 && (
@@ -469,9 +471,11 @@ const MainPrompt = () => {
             />
           </div>
         </div>
+        
       </div>
       {modal === "auth" && <Auth isOpen={isOpen} onClose={onClose} />}
     </div>
+    
   );
 };
 
