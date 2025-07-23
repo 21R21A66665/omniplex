@@ -25,7 +25,7 @@ const SuccessPage = () => {
     }}>
       <h1 style={{ color: '#28a745', fontSize: '2.5em', marginBottom: '15px' }}>Payment Successful! 🎉</h1>
       <p style={{ fontSize: '1.2em', color: '#333', marginBottom: '25px' }}>
-        Your "Pro Plan" purchase was completed successfully.
+        Your Pro Plan purchase was completed successfully.
       </p>
       <p style={{ fontSize: '1em', color: '#555', marginBottom: '30px' }}>
         Thank you for your purchase!

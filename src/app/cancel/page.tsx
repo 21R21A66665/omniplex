@@ -19,7 +19,7 @@ const CancelPage = () => {
     }}>
       <h1 style={{ color: '#dc3545', fontSize: '2.5em', marginBottom: '15px' }}>Payment Cancelled! 😢</h1>
       <p style={{ fontSize: '1.2em', color: '#333', marginBottom: '25px' }}>
-        Your "Pro Plan" purchase was not completed.
+        Your Pro Plan purchase was not completed.
       </p>
       <p style={{ fontSize: '1em', color: '#555', marginBottom: '30px' }}>
         You can try again or contact support if you need assistance.
